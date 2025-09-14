@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const connectDB = async () => {
   try {
     const mongoURI =
-      process.env.MONGO_URI || "mongodb://localhost:27017/codeIDE";
+      process.env.MONGO_URI || "mongodb://localhost:27017/movie-review-platform";
 
     await mongoose.connect(mongoURI);
 
@@ -23,8 +23,3 @@ const connectDB = async () => {
 };
 
 export default connectDB;
-
-
-/* 
-
-*/

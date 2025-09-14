@@ -4,6 +4,7 @@ A full-stack movie review platform (monorepo) built with **React + Vite (client)
 Users can sign up, log in (JWT), browse movies, add reviews, and manage a watchlist. Admins can add movies.
 
 **GitHub:** [https://github.com/Prakhar7755/Movie-Review-Platform.git](https://github.com/Prakhar7755/Movie-Review-Platform.git)
+
 **Live Link:** [https://movie-review-platform-57pl.onrender.com](https://movie-review-platform-57pl.onrender.com)
 
 ---

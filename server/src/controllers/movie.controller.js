@@ -2,7 +2,7 @@ import MovieModel from "../models/movie.model.js";
 import ReviewModel from "../models/review.model.js";
 import { handleControllerError } from "../utils/handleControllerError.js";
 
-// get all movies /:id
+// get all movies
 const getAllMovies = async (req, res) => {
   try {
     let { page = 1, limit = 10, genre, year, title } = req.query;
@@ -12,7 +12,7 @@ const getAllMovies = async (req, res) => {
     const filter = {};
     if (genre) filter.genre = { $in: [genre] };
     if (year) filter.releaseYear = parseInt(year);
-    if (title) filter.title = { $regex: title, $options: "i" }; // case-insensitive search
+    if (title) filter.title = { $regex: title, $options: "i" }; // case insensitive search
 
     const movies = await MovieModel.find(filter)
       .sort({ createdAt: -1 })

@@ -5,6 +5,8 @@ Users can sign up, log in (JWT), browse movies, add reviews, and manage a watchl
 
 **GitHub:** [https://github.com/Prakhar7755/Movie-Review-Platform.git](https://github.com/Prakhar7755/Movie-Review-Platform.git)
 
+**Live Link:** [https://movie-review-platform-57pl.onrender.com](https://movie-review-platform-57pl.onrender.com)
+
 ---
 
 ## 📁 Repo layout (monorepo)
@@ -358,7 +360,7 @@ Or use MongoDB Compass to insert documents into `movies` collection.
 * [x] GitHub repo: `https://github.com/Pr/Movie-Review-Platform.git`
 * [x] README with installation, API docs, DB instructions, env vars, notes
 * [x] Working front-end (client) and back-end (server)
-* [ ] Deploy and add live demo link : `placed later on`
+* [x] Deploy and add live demo link : `https://movie-review-platform-57pl.onrender.com`
 
 ---
 
@@ -404,4 +406,3 @@ Root:
 ## License
 
 MIT
-

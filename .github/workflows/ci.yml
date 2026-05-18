@@ -4,7 +4,7 @@ name : build-and-lint
 on:
   push:
     branches: [main, dev]
-  pull:
+  pull_request:
     branches: [main, dev]
     
 
@@ -41,6 +41,3 @@ jobs:
       - name: Build frontend
         working-directory: client
         run: npm run build
-
-
-

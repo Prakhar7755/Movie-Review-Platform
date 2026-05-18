@@ -5,7 +5,6 @@ const Navbar = () => {
   const userId = localStorage.getItem("userId"); // get logged-in users id from local storage
   const user = JSON.parse(localStorage.getItem("user"));
 
-
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("isLoggedIn");

@@ -30,9 +30,9 @@ Users can sign up, log in (JWT), browse movies, add reviews, and manage a watchl
 
 ### Prerequisites
 
-* Node.js (v18+ recommended)
-* npm or yarn
-* MongoDB running locally or a MongoDB Atlas connection string
+- Node.js (v18+ recommended)
+- npm or yarn
+- MongoDB running locally or a MongoDB Atlas connection string
 
 ### 1 — Install dependencies
 
@@ -111,9 +111,9 @@ VITE_MODE="development"
 
 **Notes**
 
-* `JWT_SECRET` is required; the server throws if missing.
-* `CORS_ORIGIN` should match your client URL during development.
-* `MONGO_URI` can point to local MongoDB or Atlas.
+- `JWT_SECRET` is required; the server throws if missing.
+- `CORS_ORIGIN` should match your client URL during development.
+- `MONGO_URI` can point to local MongoDB or Atlas.
 
 ---
 
@@ -123,82 +123,98 @@ Base URL (development): `http://localhost:5001/api`
 
 ### Auth / Users
 
-* `POST /api/users/signup` — Register a new user
+- `POST /api/users/signup` — Register a new user
 
-  * Body JSON:
+  - Body JSON:
 
     ```json
     {
-      "username":"jane",
-      "email":"jane@example.com",
-      "password":"securepassword",
-      "profilePicture":"https://..."
+      "username": "jane",
+      "email": "jane@example.com",
+      "password": "securepassword",
+      "profilePicture": "https://..."
     }
     ```
-  * Success response (no token returned):
+
+  - Success response (no token returned):
 
     ```json
     {
       "success": true,
       "message": "Account created successfully 🎉 Welcome, jane!",
-      "user": { "id":"...", "username":"jane", "email":"jane@example.com", "role":"user", "profilePicture": null }
+      "user": {
+        "id": "...",
+        "username": "jane",
+        "email": "jane@example.com",
+        "role": "user",
+        "profilePicture": null
+      }
     }
     ```
-  * After signup, user should **login** to obtain a JWT.
 
-* `POST /api/users/login` — Login (returns JWT)
+  - After signup, user should **login** to obtain a JWT.
 
-  * Body:
+- `POST /api/users/login` — Login (returns JWT)
+
+  - Body:
 
     ```json
-    { "email":"jane@example.com", "password":"securepassword" }
+    { "email": "jane@example.com", "password": "securepassword" }
     ```
-  * Success response:
+
+  - Success response:
 
     ```json
     {
       "success": true,
       "message": "User logged in successfully",
       "token": "<JWT>",
-      "user": { "id":"...", "username":"jane", "email":"jane@example.com", "role":"user", "profilePicture": null }
+      "user": {
+        "id": "...",
+        "username": "jane",
+        "email": "jane@example.com",
+        "role": "user",
+        "profilePicture": null
+      }
     }
     ```
 
-* `GET /api/users/:id` — Get user profile & reviews (protected)
+- `GET /api/users/:id` — Get user profile & reviews (protected)
 
-  * Headers: `Authorization: Bearer <JWT>`
-  * Returns user (without password) and their reviews (populated with movie details).
+  - Headers: `Authorization: Bearer <JWT>`
+  - Returns user (without password) and their reviews (populated with movie details).
 
-* `PUT /api/users/:id` — Update profile (protected)
+- `PUT /api/users/:id` — Update profile (protected)
 
-  * Headers: `Authorization: Bearer <JWT>`
-  * Body: any of `{ username, email, profilePicture }`
-  * Only allowed if `req.user.userId === :id`.
+  - Headers: `Authorization: Bearer <JWT>`
+  - Body: any of `{ username, email, profilePicture }`
+  - Only allowed if `req.user.userId === :id`.
 
 ### Watchlist (protected)
 
-* `GET /api/users/:id/watchlist` — Get user's watchlist
+- `GET /api/users/:id/watchlist` — Get user's watchlist
   Headers: `Authorization: Bearer <JWT>`
 
-* `POST /api/users/:id/watchlist` — Add to watchlist
+- `POST /api/users/:id/watchlist` — Add to watchlist
   Body: `{ "movieId": "<movieId>" }`
   Headers: `Authorization: Bearer <JWT>`
 
-* `DELETE /api/users/:id/watchlist/:movieId` — Remove from watchlist
+- `DELETE /api/users/:id/watchlist/:movieId` — Remove from watchlist
   Headers: `Authorization: Bearer <JWT>`
 
 ### Movies
 
-* `GET /api/movies` — Get all movies (supports query params)
+- `GET /api/movies` — Get all movies (supports query params)
 
-  * Query params:
+  - Query params:
 
-    * `page` (default 1)
-    * `limit` (default 10)
-    * `genre` (exact match in array)
-    * `year` (releaseYear)
-    * `title` (case-insensitive regex search)
-  * Response:
+    - `page` (default 1)
+    - `limit` (default 10)
+    - `genre` (exact match in array)
+    - `year` (releaseYear)
+    - `title` (case-insensitive regex search)
+
+  - Response:
 
     ```json
     {
@@ -207,40 +223,42 @@ Base URL (development): `http://localhost:5001/api`
       "total": 42,
       "page": 1,
       "totalPages": 5,
-      "movies": [ /* array of movie objects */ ]
+      "movies": [
+        /* array of movie objects */
+      ]
     }
     ```
 
-* `GET /api/movies/:id` — Movie details (includes reviews)
+- `GET /api/movies/:id` — Movie details (includes reviews)
 
-  * Returns `{ success: true, movie: {...}, reviews: [...] }`
+  - Returns `{ success: true, movie: {...}, reviews: [...] }`
 
-* `POST /api/movies` — Create movie (**admin-only**)
+- `POST /api/movies` — Create movie (**admin-only**)
 
-  * Protected: `Authorization: Bearer <JWT>`
-  * Requires admin role (middleware `checkRole("admin")`)
-  * Body example:
+  - Protected: `Authorization: Bearer <JWT>`
+  - Requires admin role (middleware `checkRole("admin")`)
+  - Body example:
 
     ```json
     {
-      "title":"New Movie",
-      "genre":["Action", "Sci-Fi"],
-      "releaseYear":2024,
-      "director":"Director Name",
-      "cast":["Actor A", "Actor B"],
-      "synopsis":"Short synopsis",
-      "posterUrl":"https://..."
+      "title": "New Movie",
+      "genre": ["Action", "Sci-Fi"],
+      "releaseYear": 2024,
+      "director": "Director Name",
+      "cast": ["Actor A", "Actor B"],
+      "synopsis": "Short synopsis",
+      "posterUrl": "https://..."
     }
     ```
 
 ### Reviews
 
-* `GET /api/movies/:id/reviews` — Get reviews for movie
-* `POST /api/movies/:id/reviews` — Add a review (protected)
+- `GET /api/movies/:id/reviews` — Get reviews for movie
+- `POST /api/movies/:id/reviews` — Add a review (protected)
 
-  * Body: `{ "rating": 1-5, "reviewText": "..." }`
-  * Headers: `Authorization: Bearer <JWT>`
-  * Backend prevents duplicate reviews by same user for the same movie; it recalculates the movie averageRating after adding the review.
+  - Body: `{ "rating": 1-5, "reviewText": "..." }`
+  - Headers: `Authorization: Bearer <JWT>`
+  - Backend prevents duplicate reviews by same user for the same movie; it recalculates the movie averageRating after adding the review.
 
 ---
 
@@ -254,7 +272,9 @@ import mongoose from "mongoose";
 
 const connectDB = async () => {
   try {
-    const mongoURI = process.env.MONGO_URI || "mongodb://localhost:27017/movie-review-platform";
+    const mongoURI =
+      process.env.MONGO_URI ||
+      "mongodb://localhost:27017/movie-review-platform";
     await mongoose.connect(mongoURI);
     console.log(`✅ MongoDB Connected: ${mongoose.connection.host}`);
   } catch (error) {
@@ -278,7 +298,15 @@ import Movie from "../src/models/movie.model.js";
 await connectDB();
 
 const movies = [
-  { title: "Eternal Horizon", genre: ["Sci-Fi","Adventure"], releaseYear: 2022, director: "Maya Thompson", cast: ["Liam Harris","Sophia Kim"], synopsis:"...", posterUrl:"..." },
+  {
+    title: "Eternal Horizon",
+    genre: ["Sci-Fi", "Adventure"],
+    releaseYear: 2022,
+    director: "Maya Thompson",
+    cast: ["Liam Harris", "Sophia Kim"],
+    synopsis: "...",
+    posterUrl: "...",
+  },
   // add more...
 ];
 
@@ -300,20 +328,21 @@ Or use MongoDB Compass to insert documents into `movies` collection.
 
 ## 🛡️ Auth & Security notes
 
-* JWT tokens are issued at login and must be sent in `Authorization: Bearer <token>` for protected routes.
-* The backend middleware `authenticateToken` looks for the token in:
+- JWT tokens are issued at login and must be sent in `Authorization: Bearer <token>` for protected routes.
+- The backend middleware `authenticateToken` looks for the token in:
 
-  * `Authorization` header (Bearer token)
-  * cookies (`req.cookies?.token`)
-  * request body `req.body.token`
-* For production, consider storing tokens in **httpOnly cookies** to mitigate XSS — localStorage is simple but has security tradeoffs.
-* Make sure `JWT_SECRET` is kept secret.
+  - `Authorization` header (Bearer token)
+  - cookies (`req.cookies?.token`)
+  - request body `req.body.token`
+
+- For production, consider storing tokens in **httpOnly cookies** to mitigate XSS — localStorage is simple but has security tradeoffs.
+- Make sure `JWT_SECRET` is kept secret.
 
 ---
 
 ## ♻️ Frontend details / conventions
 
-* `client/src/lib/axios.js` sets up an axios instance with a request interceptor that automatically attaches the token from `localStorage`:
+- `client/src/lib/axios.js` sets up an axios instance with a request interceptor that automatically attaches the token from `localStorage`:
 
   ```js
   api.interceptors.request.use((config) => {
@@ -322,20 +351,22 @@ Or use MongoDB Compass to insert documents into `movies` collection.
     return config;
   });
   ```
-* Routes use React Router; protected routes check `localStorage.isLoggedIn === "true"` and `localStorage.user` (parsed).
-* Minimal state management uses local state + `localStorage`. This was chosen to keep the project small and deadline-friendly — could be refactored to Context or Redux later.
+
+- Routes use React Router; protected routes check `localStorage.isLoggedIn === "true"` and `localStorage.user` (parsed).
+- Minimal state management uses local state + `localStorage`. This was chosen to keep the project small and deadline-friendly — could be refactored to Context or Redux later.
 
 ---
 
 ## ⚙️ How the client and server communicate
 
-* Client base URL in dev: `http://localhost:5001/api` (controlled via `VITE_MODE` in `.env`)
-* Example: fetching movies:
+- Client base URL in dev: `http://localhost:5001/api` (controlled via `VITE_MODE` in `.env`)
+- Example: fetching movies:
 
   ```js
   api.get("/movies?page=1&limit=12");
   ```
-* Example: posting a review (JWT attached automatically by interceptor):
+
+- Example: posting a review (JWT attached automatically by interceptor):
 
   ```js
   api.post(`/movies/${movieId}/reviews`, { rating: 5, reviewText: "Great!" });
@@ -345,41 +376,41 @@ Or use MongoDB Compass to insert documents into `movies` collection.
 
 ## 📝 Additional notes & design decisions
 
-* **Monorepo**: chosen to keep client and server together for easy code management and single repo submission. Root scripts facilitate building/starting both packages.
-* **Simplicity for deadline**: used React + Tailwind + local state to deliver functionality quickly. No Redux to reduce setup time.
-* **Auth stored in localStorage**: pragmatic choice for speed; consider httpOnly cookies for production.
-* **Role-based admin**: `createMovie` is gated with `checkRole("admin")` middleware. Admin UI is behind a protected route: `/admin/add-movie`.
-* **Error handling**: backend uses consistent `{ success, message }` patterns; client uses `react-toastify` for user feedback.
-* **Extensibility**: easy to plug TMDB API for richer metadata and trailers if desired.
-* **CORS**: server expects CORS\_ORIGIN to be set (e.g., `http://localhost:5173`) — adjust if you run client on a different port.
+- **Monorepo**: chosen to keep client and server together for easy code management and single repo submission. Root scripts facilitate building/starting both packages.
+- **Simplicity for deadline**: used React + Tailwind + local state to deliver functionality quickly. No Redux to reduce setup time.
+- **Auth stored in localStorage**: pragmatic choice for speed; consider httpOnly cookies for production.
+- **Role-based admin**: `createMovie` is gated with `checkRole("admin")` middleware. Admin UI is behind a protected route: `/admin/add-movie`.
+- **Error handling**: backend uses consistent `{ success, message }` patterns; client uses `react-toastify` for user feedback.
+- **Extensibility**: easy to plug TMDB API for richer metadata and trailers if desired.
+- **CORS**: server expects CORS_ORIGIN to be set (e.g., `http://localhost:5173`) — adjust if you run client on a different port.
 
 ---
 
 ## ✅ Checklist for submission
 
-* [x] GitHub repo: `https://github.com/Pr/Movie-Review-Platform.git`
-* [x] README with installation, API docs, DB instructions, env vars, notes
-* [x] Working front-end (client) and back-end (server)
-* [x] Deploy and add live demo link : `https://movie-review-platform-57pl.onrender.com`
+- [x] GitHub repo: `https://github.com/Pr/Movie-Review-Platform.git`
+- [x] README with installation, API docs, DB instructions, env vars, notes
+- [x] Working front-end (client) and back-end (server)
+- [x] Deploy and add live demo link : `https://movie-review-platform-57pl.onrender.com`
 
 ---
 
 ## 📦 Troubleshooting
 
-* **401 Unauthorized when posting reviews**
+- **401 Unauthorized when posting reviews**
 
-  * Ensure you are logged in and token exists in `localStorage.token`.
-  * Confirm axios interceptor is adding `Authorization` header.
-  * Check `JWT_SECRET` is the same across environments.
+  - Ensure you are logged in and token exists in `localStorage.token`.
+  - Confirm axios interceptor is adding `Authorization` header.
+  - Check `JWT_SECRET` is the same across environments.
 
-* **CORS errors**
+- **CORS errors**
 
-  * Ensure `CORS_ORIGIN` matches the client origin or use `*` during local dev (not recommended for production).
+  - Ensure `CORS_ORIGIN` matches the client origin or use `*` during local dev (not recommended for production).
 
-* **MongoDB connection issues**
+- **MongoDB connection issues**
 
-  * Verify `MONGO_URI` and that MongoDB is accessible.
-  * Check firewall rules for Atlas.
+  - Verify `MONGO_URI` and that MongoDB is accessible.
+  - Check firewall rules for Atlas.
 
 ---
 
@@ -387,19 +418,19 @@ Or use MongoDB Compass to insert documents into `movies` collection.
 
 From `server/`:
 
-* `npm run dev` — dev server (nodemon)
-* `npm start` — start server
+- `npm run dev` — dev server (nodemon)
+- `npm start` — start server
 
 From `client/`:
 
-* `npm run dev` — start Vite dev server
-* `npm run build` — build client for production
-* `npm run preview` — preview build
+- `npm run dev` — start Vite dev server
+- `npm run build` — build client for production
+- `npm run preview` — preview build
 
 Root:
 
-* `yarn build` — installs/builds both packages
-* `yarn start` — start server
+- `yarn build` — installs/builds both packages
+- `yarn start` — start server
 
 ---
 

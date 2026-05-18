@@ -1,8 +1,4 @@
-export const handleControllerError = (
-  res,
-  error,
-  contextMessage = "Internal Server Error"
-) => {
+export const handleControllerError = (res, error, contextMessage = "Internal Server Error") => {
   console.error(`🔥 ${contextMessage}:`, error.message);
 
   return res.status(500).json({

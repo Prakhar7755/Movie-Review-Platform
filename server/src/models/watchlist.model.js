@@ -16,12 +16,11 @@ const watchlistSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 watchlistSchema.index({ userId: 1, movieId: 1 }, { unique: true });
 
-const Watchlist =
-  mongoose.models?.Watchlist || mongoose.model("Watchlist", watchlistSchema);
+const Watchlist = mongoose.models?.Watchlist || mongoose.model("Watchlist", watchlistSchema);
 
 export default Watchlist;

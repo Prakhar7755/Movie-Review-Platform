@@ -16,7 +16,6 @@ const reviewSchema = new mongoose.Schema({
   timestamp: { type: Date, default: Date.now },
 });
 
-const Review =
-  mongoose.models?.Review || mongoose.model("Review", reviewSchema);
+const Review = mongoose.models?.Review || mongoose.model("Review", reviewSchema);
 
 export default Review;

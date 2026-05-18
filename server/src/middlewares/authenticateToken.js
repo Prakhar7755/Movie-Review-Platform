@@ -15,7 +15,6 @@ const authenticateToken = (req, res, next) => {
   // Pick the token from the first available source
   const token = tokenFromHeader || tokenFromCookie || tokenFromBody;
 
-
   if (!token) {
     return res.sendStatus(401); // Unauthorized - token missing
   }
@@ -23,7 +22,7 @@ const authenticateToken = (req, res, next) => {
   jwt.verify(token, jwtSecret, (err, user) => {
     if (err) {
       console.error("❌ JWT verification error:", err.message);
-      return res.sendStatus(403); 
+      return res.sendStatus(403);
     }
     req.user = user;
     next();

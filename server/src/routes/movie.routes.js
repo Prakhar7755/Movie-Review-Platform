@@ -11,16 +11,10 @@ import {
 
 const router = express.Router();
 
-router
-  .route("/")
-  .get(getAllMovies)
-  .post(authenticateToken, checkRole("admin"), createMovie);
+router.route("/").get(getAllMovies).post(authenticateToken, checkRole("admin"), createMovie);
 
 router.route("/:id").get(getMovieById);
 
-router
-  .route("/:id/reviews")
-  .get(getMovieReviews)
-  .post(authenticateToken, addMovieReview);
+router.route("/:id/reviews").get(getMovieReviews).post(authenticateToken, addMovieReview);
 
 export default router;

@@ -107,17 +107,14 @@ const login = async (req, res) => {
       }
       return res.status(404).json({
         success: false,
-        message:
-          "User not found. Please check your email or register for a new account.",
+        message: "User not found. Please check your email or register for a new account.",
       });
     }
 
     const isPasswordValid = await user.comparePassword(password);
     if (!isPasswordValid) {
       if (process.env.NODE_ENV !== "production") {
-        console.warn(
-          `⚠️ Login failed: invalid password for ${normalizedEmail}`
-        );
+        console.warn(`⚠️ Login failed: invalid password for ${normalizedEmail}`);
       }
       return res.status(401).json({
         success: false,
@@ -163,17 +160,13 @@ const getUserProfileAndReviews = async (req, res) => {
 
     // auth check
     if (req.user.userId !== id /*  */) {
-      return res
-        .status(403)
-        .json({ success: false, message: "Access denied." });
+      return res.status(403).json({ success: false, message: "Access denied." });
     }
 
     // find user
     const user = await UserModel.findById(id).select("-password");
     if (!user) {
-      return res
-        .status(404)
-        .json({ success: false, message: "User not found" });
+      return res.status(404).json({ success: false, message: "User not found" });
     }
 
     // fetch user reviews and fill the movie details
@@ -203,9 +196,7 @@ const updateUserProfile = async (req, res) => {
 
     // authorize check
     if (req.user.userId !== id) {
-      return res
-        .status(403)
-        .json({ success: false, message: "Access denied." });
+      return res.status(403).json({ success: false, message: "Access denied." });
     }
 
     const { username, email, profilePicture } = req.body;
@@ -217,13 +208,11 @@ const updateUserProfile = async (req, res) => {
         ...(email && { email: email.toLowerCase().trim() }),
         ...(profilePicture && { profilePicture }),
       },
-      { new: true, runValidators: true, select: "-password" }
+      { new: true, runValidators: true, select: "-password" },
     );
 
     if (!updatedUser) {
-      return res
-        .status(404)
-        .json({ success: false, message: "User not found" });
+      return res.status(404).json({ success: false, message: "User not found" });
     }
 
     res.status(200).json({
@@ -246,9 +235,7 @@ const getUserWatchlist = async (req, res) => {
   try {
     const { id } = req.params;
     if (req.user.userId !== id) {
-      return res
-        .status(403)
-        .json({ success: false, message: "Access denied." });
+      return res.status(403).json({ success: false, message: "Access denied." });
     }
 
     const watchlist = await WatchlistModel.find({ userId: id })
@@ -277,22 +264,16 @@ const addMovieToWatchlist = async (req, res) => {
     const { movieId } = req.body;
 
     if (req.user.userId !== id) {
-      return res
-        .status(403)
-        .json({ success: false, message: "Access denied." });
+      return res.status(403).json({ success: false, message: "Access denied." });
     }
 
     if (!movieId) {
-      return res
-        .status(400)
-        .json({ success: false, message: "movieId is required." });
+      return res.status(400).json({ success: false, message: "movieId is required." });
     }
 
     const movie = await MovieModel.findById(movieId);
     if (!movie) {
-      return res
-        .status(404)
-        .json({ success: false, message: "Movie not found." });
+      return res.status(404).json({ success: false, message: "Movie not found." });
     }
 
     // new entry
@@ -327,9 +308,7 @@ const removeMovieFromWatchlist = async (req, res) => {
   try {
     const { id, movieId } = req.params;
     if (req.user.userId !== id) {
-      return res
-        .status(403)
-        .json({ success: false, message: "Access denied." });
+      return res.status(403).json({ success: false, message: "Access denied." });
     }
 
     const watchListItem = await WatchlistModel.findOne({ userId: id, movieId });
@@ -345,9 +324,7 @@ const removeMovieFromWatchlist = async (req, res) => {
     const movie = await MovieModel.findById(movieId).select("title");
     res.status(200).json({
       success: true,
-      message: movie
-        ? `${movie.title} removed from watchlist.`
-        : "Movie removed from watchlist.",
+      message: movie ? `${movie.title} removed from watchlist.` : "Movie removed from watchlist.",
     });
   } catch (error) {
     console.error("🔥 Error removing from watchlist:", error.message);

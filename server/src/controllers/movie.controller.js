@@ -42,9 +42,7 @@ const getMovieById = async (req, res) => {
     // get movie
     const movie = await MovieModel.findById(id);
     if (!movie) {
-      return res
-        .status(404)
-        .json({ success: false, message: "Movie not found" });
+      return res.status(404).json({ success: false, message: "Movie not found" });
     }
 
     // get reviews of the movie
@@ -65,8 +63,7 @@ const getMovieById = async (req, res) => {
 // create a movie POST FOR ADMINS only
 const createMovie = async (req, res) => {
   try {
-    const { title, genre, releaseYear, director, cast, synopsis, posterUrl } =
-      req.body;
+    const { title, genre, releaseYear, director, cast, synopsis, posterUrl } = req.body;
     if (!title || !genre || !releaseYear) {
       return res.status(400).json({
         success: false,
@@ -100,9 +97,7 @@ const getMovieReviews = async (req, res) => {
 
     const movie = await MovieModel.findById(id).select("title");
     if (!movie) {
-      return res
-        .status(404)
-        .json({ success: false, message: "Movie not found" });
+      return res.status(404).json({ success: false, message: "Movie not found" });
     }
 
     const reviews = await ReviewModel.find({ movieId: id })
@@ -126,9 +121,7 @@ const addMovieReview = async (req, res) => {
     const { id } = req.params; // movieId
     const { rating, reviewText } = req.body;
     if (!rating || rating < 1 || rating > 5) {
-      return res
-        .status(400)
-        .json({ success: false, message: "Rating must be between 1 and 5" });
+      return res.status(400).json({ success: false, message: "Rating must be between 1 and 5" });
     }
 
     const existingReview = await ReviewModel.findOne({
@@ -145,9 +138,7 @@ const addMovieReview = async (req, res) => {
 
     const movie = await MovieModel.findById(id);
     if (!movie) {
-      return res
-        .status(404)
-        .json({ success: false, message: "Movie not found" });
+      return res.status(404).json({ success: false, message: "Movie not found" });
     }
 
     // create new review
@@ -186,10 +177,4 @@ const addMovieReview = async (req, res) => {
   }
 };
 
-export {
-  getAllMovies,
-  getMovieById,
-  createMovie,
-  getMovieReviews,
-  addMovieReview,
-};
+export { getAllMovies, getMovieById, createMovie, getMovieReviews, addMovieReview };

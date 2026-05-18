@@ -28,9 +28,6 @@ router
   .get(authenticateToken, getUserWatchlist)
   .post(authenticateToken, addMovieToWatchlist);
 
-router
-  .route("/:id/watchlist/:movieId")
-  .delete(authenticateToken, removeMovieFromWatchlist);
-
+router.route("/:id/watchlist/:movieId").delete(authenticateToken, removeMovieFromWatchlist);
 
 export default router;

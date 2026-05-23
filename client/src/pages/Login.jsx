@@ -15,7 +15,7 @@ const Login = () => {
     e.preventDefault();
     setLoading(true);
 
-    console.log("Hi")
+    console.log("Hi");
     try {
       const res = await api.post(
         "/users/login",

@@ -25,26 +25,6 @@ const clientPath = path.join(__dirname, "../client/dist");
 app.use(express.json({ limit: "400kb" }));
 app.use(express.urlencoded({ extended: true, limit: "400kb" }));
 app.use(cookieParser());
-// app.use(
-//   helmet({
-//     contentSecurityPolicy: {
-//       directives: {
-//         defaultSrc: ["'self'"],
-//         connectSrc: ["'self'", "https://emkc.org"],
-//         scriptSrc: [
-//           "'self'",
-//           "https://cdn.jsdelivr.net",
-//           "'unsafe-inline'",
-//           "'unsafe-eval'",
-//         ],
-//         styleSrc: ["'self'", "https://cdn.jsdelivr.net", "'unsafe-inline'"],
-//         imgSrc: ["'self'", "data:", "blob:"],
-//         fontSrc: ["'self'", "https://cdn.jsdelivr.net", "data:"],
-//         objectSrc: ["'none'"],
-//       },
-//     },
-//   })
-// );
 
 // ---------------------------
 // CORS Setup (Dev Only)

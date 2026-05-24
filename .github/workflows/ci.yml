@@ -35,7 +35,7 @@ jobs:
 
       - name: Check frontend formatting
         working-directory: client
-        run: npx prettier --check .
+        run: npm run format
 
       - name: Lint backend
         working-directory: server
@@ -43,7 +43,7 @@ jobs:
 
       - name: Check backend formatting
         working-directory: server
-        run: npx prettier --check .
+        run: npm run format
 
       - name: Build frontend
         working-directory: client

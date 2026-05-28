@@ -1,35 +1,31 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: backend
+  name: frontend
   namespace: devops-part3
   labels:
-    app: backend
+    app: frontend
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: backend
+      app: frontend
   template:
     metadata:
       labels:
-        app: backend
+        app: frontend
     spec:
       containers:
-        - name: backend
-          image: movie-review-backend:latest
+        - name: frontend
+          image: movie-review-frontend:latest
           imagePullPolicy: Never
           ports:
-            - containerPort: 5001
+            - containerPort: 5173
           env:
             - name: NODE_ENV
-              value: production
-            - name: MONGO_URI
-              value: mongodb://mongo:27017/movie-review-platform
-            - name: PORT
-              value: "5001"
-            - name: JWT_SECRET
-              value: "your-secret-key-here"
+              value: development
+            - name: VITE_MODE
+              value: development
           resources:
             limits:
               cpu: "500m"
@@ -41,12 +37,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: backend
+  name: frontend
   namespace: devops-part3
 spec:
   selector:
-    app: backend
+    app: frontend
   ports:
-    - port: 5001
-      targetPort: 5001
+    - port: 5173
+      targetPort: 5173
   type: ClusterIP
